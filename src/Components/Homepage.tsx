@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/query";
 import { fetchCityData } from "../redux/CitySlice";
 import { CityData } from "../Interface/Types";
-import { ClipLoader, ScaleLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
+import { IRootState } from "../redux";
 
 const Homepage = () => {
-  const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.data);
-  const loading = useSelector((state: RootState) => state.loading);
-  const error = useSelector((state: RootState) => state.error);
-
+  const dispatch = useDispatch<any>();
+  const data = useSelector((state: IRootState) => state.data);
+  const loading = useSelector((state: IRootState) => state.loading);
+  const error = useSelector((state: IRootState) => state.error);
+  console.error(error);
   useEffect(() => {
     dispatch(fetchCityData());
   }, [dispatch]);
