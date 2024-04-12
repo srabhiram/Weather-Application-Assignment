@@ -1,29 +1,28 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@reduxjs/toolkit/query";
+import { fetchCityData } from "../redux/CitySlice";
 import { CityData } from "../Interface/Types";
+import { ClipLoader, ScaleLoader } from "react-spinners";
 
 const Homepage = () => {
-  const [data, setData] = useState<CityData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data);
+  const loading = useSelector((state: RootState) => state.loading);
+  const error = useSelector((state: RootState) => state.error);
 
   useEffect(() => {
-    fetch(
-      "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=100&refine=cou_name_en%3A%22India%22"
-    )
-      .then((response) => response.json())
-      .then((responseData) => {
-        setData(responseData.results);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("There was a problem fetching the data:", error);
-      });
-      return () => {
-        setData([]);
-      }
-  }, []);
+    dispatch(fetchCityData());
+  }, [dispatch]);
 
-  if (isLoading) {
-    return <p className="mx-auto w-full h-screen text-center text-3xl font-bold">Loading...</p>;
+  if (loading) {
+    return (
+      <>
+        <div className="h-screen w-full flex justify-center  items-center mx-auto">
+          <ScaleLoader className=" h-28 w-36 border-black" loading={loading} />
+        </div>
+      </>
+    );
   }
 
   return (
@@ -37,7 +36,7 @@ const Homepage = () => {
           <table className=" border-collapse   table-fixed w-full">
             {/* Table header */}
             <thead>
-              <tr className="w-max bg-gray-200 px-2 ">
+              <tr className="w-max bg-gray-200 px-2 sticky top-0">
                 <th className="border-b border-slate-200 px-2 py-2 w-12">
                   S.no
                 </th>
@@ -56,10 +55,11 @@ const Homepage = () => {
             </thead>
             {/* Table body */}
             <tbody className="bg-white text-center">
-              {data.map((city, index) => (
+              {data.map((city: CityData, index) => (
                 <tr
                   className="hover:bg-slate-100 even:bg-gray-50 odd:bg-white overflow-x-hidden truncatate "
-                  key={index} onClick={()=>console.log(city.name)}
+                  key={index}
+                  onClick={() => console.log(city.name)}
                 >
                   <td className="border-b border-slate-200 px-2 py-2 w-fit">
                     {index + 1}
