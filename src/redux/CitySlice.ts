@@ -1,21 +1,21 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CityData } from "../Interface/Types";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { CityData } from "../Interface/Types";
 
-interface Citystate {
+interface CityState {
   data: CityData[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: Citystate = {
+const initialState: CityState = {
   data: [],
   loading: true,
   error: null,
 };
 
-export const fetchCityData = createAsyncThunk(
-  "data/fetchCiityData",
+export const fetchCityData = createAsyncThunk<CityData[]>(
+  "data/fetchCityData",
   async () => {
     const response = await axios.get(
       "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=100&refine=cou_name_en%3A%22India%22"
@@ -34,13 +34,14 @@ const citySlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchCityData.fulfilled, (state, action: PayloadAction<CityData[]>) => {
+      .addCase(fetchCityData.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        state.error = null;
       })
-      .addCase(fetchCityData.rejected, (state, action: PayloadAction<string>) => {
+      .addCase(fetchCityData.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Failed to fetch data';
+        state.error = action.payload ? action.payload.toString() : 'Failed to fetch data';
       });
   },
 });
