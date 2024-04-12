@@ -24,6 +24,12 @@ export const fetchCityData = createAsyncThunk<CityData[]>(
   }
 );
 
+export const fetchWeatherData = createAsyncThunk<WeatherData[]>()
+"data'fetchWeatherData",
+async () => {
+    const response = await axios.get("")
+}
+
 const citySlice = createSlice({
   name: "data",
   initialState,
@@ -44,6 +50,20 @@ const citySlice = createSlice({
         state.error = action.payload ? action.payload.toString() : 'Failed to fetch data';
       });
   },
-});
+},
+);
+
+const weatherSlice = createSlice({
+    name:"weather",
+    initialState,
+    reducers: {},
+    extraReducers(builder) {
+        builder
+        .addCase(fetchWeather.rejected, (state, action)=>{
+state.loading = false;
+state.error = action.payload ? action.payload.toString() : 'Failed to fetch weatherData'
+        })
+    },
+})
 
 export default citySlice.reducer;

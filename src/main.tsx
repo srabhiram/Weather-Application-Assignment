@@ -5,13 +5,12 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux";
 
-
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
- <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+      <div className="bg-slate-900 h-screen">
+        <App />
+      </div>
+    </React.StrictMode>
   </Provider>
- 
 );

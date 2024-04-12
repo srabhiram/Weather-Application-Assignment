@@ -6,6 +6,7 @@ import { ScaleLoader } from "react-spinners";
 import { IRootState } from "../redux";
 
 const Homepage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
   const data = useSelector((state: IRootState) => state.data);
   const loading = useSelector((state: IRootState) => state.loading);
@@ -19,7 +20,7 @@ const Homepage = () => {
     return (
       <>
         <div className="h-screen w-full flex justify-center  items-center mx-auto">
-          <ScaleLoader className=" h-28 w-36 border-black" loading={loading} />
+          <ScaleLoader  color="white"  loading={loading} />
         </div>
       </>
     );
@@ -28,12 +29,13 @@ const Homepage = () => {
   return (
     <>
       <div>
-        <div className="">
-          <p>Weather Data</p>
+        <div className="p-3 bg-slate-700 mb-9 flex justify-center gap-[15rem] w-full mx-auto items-center font-semibold">
+          <p className=" text-2xl p-2 text-gray-100">Weather Data</p>
+          <input type="search" name="Search City" className="bg-gray-50 rounded w-1/6 p-1.5 placeholder:pl-2" placeholder="Search"/>
         </div>
 
-        <div className="normal-case w-1/2 mx-auto h-[25rem] overflow-x-clip  overflow-y-auto shadow-md rounded-md ">
-          <table className=" border-collapse   table-fixed w-full">
+        <div className="normal-case container mx-auto lg:w-2/3 max-sm:w-max h-[28rem] lg:overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
+          <table className=" border-collapse   table-fixed lg:w-full sm:w-auto">
             {/* Table header */}
             <thead>
               <tr className="w-max bg-gray-200 px-2 sticky top-0">
