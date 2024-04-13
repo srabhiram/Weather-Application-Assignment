@@ -28,7 +28,7 @@ const CityTable: React.FC<dataProps> = ({ data, loading }) => {
           placeholder="Search"
         />
       </div>
-      <div className=" normal-case container mx-auto lg:w-2/3 max-sm:w-max h-[28rem] overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
+      <div className=" normal-case container max-sm:px-2 lg:w-2/3 max-sm:w-full h-[28rem] overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
         <table className=" border-collapse    table-fixed lg:w-full sm:w-auto">
           {/* Table header */}
           <thead>
