@@ -8,7 +8,7 @@ import store from "./redux";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <React.StrictMode>
-      <div className="bg-slate-900 h-screen">
+      <div className="bg-gradient-to-r  from-blue-200 to-blue-300 h-screen">
         <App />
       </div>
     </React.StrictMode>

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCityData } from "./redux/CitySlice";
 import { IRootState } from "./redux";
 import CityTable from "./Components/CityTable";
-import Navbar from "./Components/Navbar";
 import Spinner from "./Components/Spinner";
 
 const Homepage: React.FC = () => {
@@ -22,7 +21,7 @@ const Homepage: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+     
       <CityTable data={data} loading = {loading}/>
     </>
   );

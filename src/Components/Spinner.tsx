@@ -5,7 +5,7 @@ const Spinner: React.FC<loadingProps> = ({ loading }) => {
   return (
     <>
       <div className="h-screen w-full flex justify-center  items-center mx-auto">
-        <ScaleLoader color="white" loading={loading} />
+        <ScaleLoader color="black" loading={loading} />
       </div>
     </>
   );

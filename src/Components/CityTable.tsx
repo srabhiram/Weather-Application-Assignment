@@ -19,8 +19,17 @@ const CityTable: React.FC<dataProps> = ({ data, loading }) => {
 
   return (
     <>
-      <div className="normal-case container mx-auto lg:w-2/3 max-sm:w-max h-[28rem] lg:overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
-        <table className=" border-collapse   table-fixed lg:w-full sm:w-auto">
+    <div className="p-3 bg-slate-700 mb-9 flex justify-center gap-[15rem] w-full mx-auto items-center font-semibold">
+        <p className=" text-2xl p-2 text-gray-100">Weather Data</p>
+        <input
+          type="search"
+          name="Search City"
+          className="bg-gray-50 rounded w-1/6 p-1.5 placeholder:pl-2"
+          placeholder="Search"
+        />
+      </div>
+      <div className=" normal-case container mx-auto lg:w-2/3 max-sm:w-max h-[28rem] overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
+        <table className=" border-collapse    table-fixed lg:w-full sm:w-auto">
           {/* Table header */}
           <thead>
             <tr className="w-max bg-gray-200 px-2 sticky top-0">
