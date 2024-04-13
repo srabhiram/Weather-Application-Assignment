@@ -44,7 +44,7 @@ const WeatherSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchweatherData.rejected, (state, action) => {
-        state.loading = false;
+        state.loading = true;
         state.error = action.payload
           ? action.payload.toString()
           : "Failed to fetch data";
