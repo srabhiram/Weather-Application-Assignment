@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { CityData, dataProps } from "../Interface/CityData";
+import { CityData } from "../Interface/CityData";
 
 interface propsValue{
     data:CityData[];
