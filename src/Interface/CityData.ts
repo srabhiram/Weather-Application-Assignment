@@ -29,6 +29,7 @@ export interface Coordinates {
 
 export interface dataProps {
   data: CityData[];
+  loading: boolean;
 }
 export interface loadingProps {
   loading: boolean;

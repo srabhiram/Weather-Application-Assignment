@@ -9,9 +9,9 @@ function App() {
       element: <Homepage />,
     },
     {
-      path: "/weather",
-      element: <Weatherpage/>,
-    }
+      path: "/weather/:geoname_id",
+      element: <Weatherpage />,
+    },
   ]);
   return (
     <>

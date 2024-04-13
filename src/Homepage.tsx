@@ -23,7 +23,7 @@ const Homepage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <CityTable data={data} />
+      <CityTable data={data} loading = {loading}/>
     </>
   );
 };

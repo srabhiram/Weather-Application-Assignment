@@ -1,5 +1,22 @@
+import { useDispatch } from "react-redux";
 import { CityData, dataProps } from "../Interface/CityData";
-const CityTable: React.FC<dataProps> = ({ data }) => {
+import { fetchweatherData } from "../redux/WeatherSLice";
+import { useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";
+const CityTable: React.FC<dataProps> = ({ data, loading }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dispatch = useDispatch<any>();
+  const navigate = useNavigate();
+
+  const handleClick = (geoname_id: string) => {
+    dispatch(fetchweatherData(geoname_id));
+    setTimeout(() => {
+      <Spinner loading={loading} />;
+    }, 1500);
+    navigate(`/weather/${geoname_id}`);
+    console.log(geoname_id);
+  };
+
   return (
     <>
       <div className="normal-case container mx-auto lg:w-2/3 max-sm:w-max h-[28rem] lg:overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
@@ -25,7 +42,7 @@ const CityTable: React.FC<dataProps> = ({ data }) => {
               <tr
                 className="hover:bg-slate-100 even:bg-gray-50 odd:bg-white overflow-x-hidden truncatate "
                 key={index}
-                onClick={() => console.log(city.name)}
+                onClick={() => handleClick(city.geoname_id)}
               >
                 <td className="border-b border-slate-200 px-2 py-2 w-fit">
                   {index + 1}

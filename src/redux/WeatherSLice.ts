@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { weatherData } from "../Interface/weather";
+import { weatherData } from "../Interface/WeatherData";
 
 interface WeatherState {
   weatherData: weatherData | null;
@@ -8,17 +8,19 @@ interface WeatherState {
   error: string | null;
 }
 
-const initialState: WeatherState= {
+
+
+const initialState: WeatherState = {
   weatherData: null,
   loading: false,
   error: null,
 };
 
-export const fetchweatherData = createAsyncThunk<weatherData>(
+export const fetchweatherData = createAsyncThunk<weatherData, string>(
   "weatherData",
-  async () => {
+  async (geoname_id) => {
     const response = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?id=1253095&appid=${
+      `http://api.openweathermap.org/data/2.5/weather?id=${geoname_id}&appid=${
         import.meta.env.VITE_API_KEY
       }`
     );

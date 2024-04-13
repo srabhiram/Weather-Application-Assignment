@@ -1,6 +1,6 @@
-import { weatherProps } from "../Interface/weather";
+import { weatherProps } from "../Interface/WeatherData";
 
-const Weather:React.FC<weatherProps> = ({data}) => {
+const Weather: React.FC<weatherProps> = ({ data }) => {
   return (
     <>
       <div className="drop-shadow-lg  shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl">
@@ -38,8 +38,6 @@ const Weather:React.FC<weatherProps> = ({data}) => {
         </div>
 
         <div id="info" className="flex flex-col gap-1 items-center">
-         
-
           <h1
             id="Location-name"
             className="  normal-case font-thin text-[27px] px-2"
@@ -48,11 +46,7 @@ const Weather:React.FC<weatherProps> = ({data}) => {
           </h1>
           <p className="font-thin p-1 text-5xl m-0">
             {data.main.temp}
-            {typeof data.main.temp === "number" ? (
-              <sup>°</sup>
-            ) : (
-              <span> </span>
-            )}
+            {typeof data.main.temp === "number" ? <sup>°</sup> : <span> </span>}
           </p>
           <h1 className="capitalize mb-4 font-regular text-xl px-2">
             {data.weather[0].description}
@@ -65,15 +59,9 @@ const Weather:React.FC<weatherProps> = ({data}) => {
             className="flex flex-col items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm "
           >
             <span>
-              {data.wind.speed}{" "}
-              <span className="text-[9px]"> m/sec</span>
+              {data.wind.speed} <span className="text-[9px]"> m/sec</span>
             </span>
-            <img
-             
-              width={22}
-              alt="weather"
-              className="py-1"
-            />
+            <img width={22} alt="weather" className="py-1" />
             <span>Wind flow</span>
           </div>
 
@@ -85,12 +73,7 @@ const Weather:React.FC<weatherProps> = ({data}) => {
               {data.main.pressure}
               <span className="text-[9px]"> hPa</span>
             </span>
-            <img
-             
-              width={21}
-              alt="weather"
-              className="py-1"
-            />
+            <img width={21} alt="weather" className="py-1" />
             <span>Pressure</span>
           </div>
 
@@ -99,12 +82,7 @@ const Weather:React.FC<weatherProps> = ({data}) => {
             id="humidity"
           >
             <span>{data.main.humidity}%</span>
-            <img
-             
-              width={22}
-              alt="weather"
-              className="py-1"
-            />
+            <img width={22} alt="weather" className="py-1" />
             <span>Humidity</span>
           </div>
         </div>
