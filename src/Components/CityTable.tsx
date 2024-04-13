@@ -3,12 +3,14 @@ import { CityData, dataProps } from "../Interface/CityData";
 import { fetchweatherData } from "../redux/WeatherSLice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import AutoCompleteSearchbar from "./AutoCompleteSearchbar";
+
 const CityTable: React.FC<dataProps> = ({ data, loading }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
 
-  const handleClick = (geoname_id: string) => {
+  const handleClick = (geoname_id: string):void => {
     dispatch(fetchweatherData(geoname_id));
     setTimeout(() => {
       <Spinner loading={loading} />;
@@ -20,14 +22,9 @@ const CityTable: React.FC<dataProps> = ({ data, loading }) => {
   return (
     <>
       <div className="flex flex-col justify-center items-center gap-6">
-        <div className="p-3 bg-white/70 backdrop-blur-sm flex justify-center gap-[10rem] w-full mx-auto items-center">
+        <div className="relative z-40 p-3 bg-white/70 backdrop-blur-sm flex justify-center gap-[10rem] w-full mx-auto items-center">
           <p className=" text-xl px-1 text-slate-800 font-bold ">Weather Data</p>
-          <input
-            type="search"
-            name="Search City"
-            className="bg-gray-50 rounded w-1/4 p-1.5 placeholder:pl-2"
-            placeholder="Search"
-          />
+          <AutoCompleteSearchbar data= {data}  handleclick = {handleClick}/>
         </div>
         <div className=" normal-case container max-sm:px-2 lg:w-2/3 max-sm:w-full h-[28rem] overflow-x-auto  overflow-y-auto shadow-md rounded-md ">
           <table className=" border-collapse    table-fixed lg:w-full sm:w-auto">

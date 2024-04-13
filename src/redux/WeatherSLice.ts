@@ -22,7 +22,7 @@ export const fetchweatherData = createAsyncThunk<weatherData, string>(
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?id=${geoname_id}&appid=${
         import.meta.env.VITE_API_KEY
-      }`
+      }&units=imperial`
     );
     return response.data;
   }
