@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { CityData } from "../Interface/Types";
+import { CityData } from "../Interface/CityData";
 
 interface CityState {
   data: CityData[];
@@ -41,11 +41,11 @@ const citySlice = createSlice({
       })
       .addCase(fetchCityData.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ? action.payload.toString() : 'Failed to fetch data';
+        state.error = action.payload
+          ? action.payload.toString()
+          : "Failed to fetch data";
       });
   },
-},
-);
-
+});
 
 export default citySlice.reducer;
