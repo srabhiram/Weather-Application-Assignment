@@ -25,16 +25,16 @@ const AutoCompleteSearchbar: React.FC<propsValue> = ({ data,handleclick }) => {
       <div>
         <input
           type="search"
-          placeholder="search"
-          className="p-2 mb-1"
+          placeholder="Search"
+          className="p-2 outline-none focus:ring-blue-400 focus:ring-1 w-[13rem] rounded-md"
           onChange={handlechange}
         />
 
         {query !== "" && searchResults.length > 0 && (
-          <div className="bg-white w-[120px] px-1 h-[120px] absolute overflow-y-scroll">
+          <div className="bg-white w-[13rem] mt-1 cursor-default  max-h-[120px] min-h-fit  overflow-y-scroll  absolute rounded-md shadow-md ">
             {searchResults.map((city) => (
-              <div key={city.geoname_id}>
-                <p onClick={()=>handleclick(city.geoname_id)}>{city.name}</p>
+              <div key={city.geoname_id} className="hover:bg-gray-200 active:bg-blue-300 px-3  py-1" >
+                <p  onClick={()=>handleclick(city.geoname_id)}>{city.name}</p>
               </div>
             ))}
           </div>

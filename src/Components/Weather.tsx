@@ -40,7 +40,7 @@ const Weather: React.FC<weatherProps> = ({ data }) => {
         <div id="info" className="flex flex-col gap-1 items-center">
           <h1
             id="Location-name"
-            className="  normal-case font-thin text-[27px] px-2"
+            className=" normal-case font-thin text-[27px] px-2"
           >
             {data.name}
           </h1>
