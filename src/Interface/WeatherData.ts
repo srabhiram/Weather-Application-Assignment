@@ -61,6 +61,7 @@ interface Sys {
 }
 export interface weatherProps {
   data: weatherData;
+  icon: string | undefined
 }
 export interface loading {
   loading: boolean;
