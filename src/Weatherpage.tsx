@@ -12,7 +12,6 @@ import shower_rain_day from "./assets/rainy-2.svg";
 import rain_day from "./assets/rainy-3.svg";
 import rain_night from "./assets/rainy-6.svg";
 import thunder from "./assets/thunder.svg";
-import { useEffect } from "react";
 
 const Weatherpage = () => {
   console.log();
@@ -33,10 +32,10 @@ const Weatherpage = () => {
 
   let WeatherIcon: string | undefined;
 
-  const weatherID: number | undefined = data?.weather[0].id || undefined;
+  const weatherID: number  = data ? data?.weather[0].id : 1 ;
 
   console.log(weatherID);
-  switch (true) {
+  switch (true ) {
     case weatherID === 800:
       WeatherIcon = isDayTime ? clear_sky_day : clear_sky_night;
       break;
