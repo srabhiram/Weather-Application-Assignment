@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { IRootState } from "./redux";
 import Weather from "./Components/Weather";
 import Spinner from "./Components/Spinner";
@@ -12,17 +12,36 @@ import shower_rain_day from "./assets/rainy-2.svg";
 import rain_day from "./assets/rainy-3.svg";
 import rain_night from "./assets/rainy-6.svg";
 import thunder from "./assets/thunder.svg";
+import { useEffect, useState } from "react";
+import { fetchweatherData } from "./redux/WeatherSLice";
 
 const Weatherpage = () => {
-  console.log();
+  const [lat,setLat] = useState(0);
+  const [lon,setLon] = useState(0);
+
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dispatch = useDispatch<any>()
   const data = useSelector(
     (state: IRootState) => state.WeatherSLice.weatherData
   );
   const loading = useSelector(
     (state: IRootState) => state.WeatherSLice.loading
   );
-  console.log(data);
+  document.title=`${data?.name} | Weather Forecast`
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useEffect(() => {
+    const storedLatitude = parseFloat(localStorage.getItem("latitude") ?? '');
+    const storedLongitude = parseFloat(localStorage.getItem("longitude") ?? '');
+  
+    if (!isNaN(storedLatitude) && !isNaN(storedLongitude) && storedLatitude > 0 && storedLongitude > 0) {
+      setLat(storedLatitude);
+      setLon(storedLongitude);
+      dispatch(fetchweatherData({ lat: storedLatitude, lon: storedLongitude }));
+    } 
+  }, [lat, lon, dispatch]);
+  
   
   if (loading) {
     return <Spinner loading={loading} />;
@@ -54,13 +73,13 @@ const Weatherpage = () => {
     <>
       {data ? (
         <>
-          <div className="h-screen flex justify-center items-center w-full">
+          <div className=" flex justify-center h-dvh  lg:items-center w-full">
             {" "}
-            <Weather data={data} icon={getWeatherIcon} />
+            <Weather data={data} icon={getWeatherIcon} coord={{lat,lon}}/>
           </div>
         </>
       ) : (
-        <Spinner loading={loading} />
+        <Spinner loading={loading}  />
       )}
     </>
   );

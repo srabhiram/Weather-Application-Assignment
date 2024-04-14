@@ -55,8 +55,8 @@ const Forecast: React.FC<forecastProps> = ({ forecastdata }) => {
                 alt=""
                 className="w-10"
               />{" "}
-              <p>{getTimeLabel(new Date(item.dt_txt))}</p>
-              <p>{temperatures[index]}</p>
+              <p className="truncate">{getTimeLabel(new Date(item.dt_txt))}</p>
+              <p>{temperatures[index]}<sup>°</sup>c</p>
               <p className="capitalize text-sm truncate">{item.weather[0].description}</p>
             </div>
           ))}

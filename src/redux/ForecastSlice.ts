@@ -20,10 +20,8 @@ export const fetchForecastData = createAsyncThunk<forecastDATA, {lat:number,lon:
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${
         import.meta.env.VITE_API_KEY
-      }`
+      }&units=metric`
     );
-    console.log(lat,lon)
-    console.log(response.data)
     return response.data;
     
   }

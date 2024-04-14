@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { weatherProps } from "../Interface/WeatherData";
 import gps from "../assets/gps-navigator.png";
 import windflow from "../assets/windflow.png";
 import humidity from "../assets/humidity.png";
 import pressure from "../assets/pressure.png";
+import sunrise from "../assets/sunrise.svg";
+import sunset from "../assets/sunset.svg";
+import fogg from "../assets/fogg.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../redux";
 import Forecast from "./Forecast";
@@ -12,11 +15,18 @@ import { useNavigate } from 'react-router-dom';
 import { fetchForecastData } from '../redux/ForecastSlice';
 import AutoCompleteSearchbar from './AutoCompleteSearchbar';
 
-const Weather: React.FC<weatherProps> = ({ data, icon }) => {
+const Weather: React.FC<weatherProps> = ({ data, icon,coord }) => {
   const [unit, setUnit] = useState('C'); // Default unit is Celsius
  const navigate = useNavigate()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>()
+  useEffect(() => {
+    const {lat,lon}=coord;
+   
+    dispatch(fetchForecastData({lat,lon}));
+  
+   
+  }, [coord,dispatch])
   const fetchData = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -54,12 +64,11 @@ const Weather: React.FC<weatherProps> = ({ data, icon }) => {
     dispatch(fetchForecastData({lat,lon}));
 
     navigate(`/weather/${geoname_id}`);
-    console.log(geoname_id);
   };
 
   return (
     <>
-      <div className="drop-shadow-lg  shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl w-1/2">
+      <div className="drop-shadow-lg  shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl lg:w-1/2 ">
         <div className="flex p-2 relative items-center justify- gap-2 mx-3">
           <div id="search-box">
             <AutoCompleteSearchbar data={cityData} handleclick={handleClick}/>
@@ -89,7 +98,7 @@ const Weather: React.FC<weatherProps> = ({ data, icon }) => {
             <p className="font-thin p-1 text-5xl m-0">
               {convertTemperature(data.main.temp, unit)} {/* Display converted temperature */}
               <sup>°</sup> 
-              <select name="temp" className="bg-inherit text-lg font-medium" value={unit} onChange={handleChange}>
+              <select name="temp" className="bg-inherit text-3xl font-medium" value={unit} onChange={handleChange}>
                 <option value="C" className="text-sm">C</option>
                 <option value="F" className="text-sm">F</option>
                 <option value="K" className="text-sm">K</option>
@@ -104,16 +113,25 @@ const Weather: React.FC<weatherProps> = ({ data, icon }) => {
         <p className="text-sm text-gray-700 px-1 text-center ">
           Feels Like: {convertTemperature(data.main.feels_like, unit)} <sup>°</sup>
         </p>
-        <div className="flex items-center justify-around  w-full">
-          <div className="text-lg  text-gray-800  ">
-            <p>Sunrise: {formatTime(data.sys.sunrise)}</p>
-            <p>Sunset: {formatTime(data.sys.sunset)}</p>
-            <p>Visibility: {data.visibility / 1000} Km</p>
+        <div className="lg:flex items-center justify-around truncate overflow-hidden w-full h-full">
+          <div className="bg-indigo-100/50 mx-2 my-4 rounded-md place-items-center grid grid-cols-3 gap-4 p-1.5 text-center lg:w-1/2">
+
+            <span className='flex items-center flex-col  hover:bg-blue-200/50 '>{formatTime(data.sys.sunrise)}
+            <img src={sunrise} alt="" width={25} />
+            Sunrise</span>
+
+            <span className='flex flex-col  hover:bg-blue-200/50  items-center'>{formatTime(data.sys.sunset)}
+            <img src={sunset} alt="" width={25}/>
+            Sunset</span>
+
+            <span className='flex flex-col  hover:bg-blue-200/50  items-center'>{data.visibility / 1000} Km 
+            <img src={fogg} width={25} alt="" />
+            Fog</span>
           </div>
-          <div className="bg-indigo-100/50 mx-2 my-4 rounded-md  grid grid-cols-3 gap-4 p-1.5 text-center w-1/2">
+          <div className="bg-indigo-100/50 mx-2 my-4 rounded-md truncate  grid grid-cols-3 gap-2 p-1.5 text-center lg:w-1/2">
             <div
               id="wind"
-              className="flex flex-col items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm "
+              className="flex flex-col  items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm "
             >
               <span>
                 {data.wind.speed} <span className="text-[9px]"> m/sec</span>
@@ -142,7 +160,6 @@ const Weather: React.FC<weatherProps> = ({ data, icon }) => {
             </div>
           </div>
         </div>
-
         <div className="flex justify-center items-center w-full mx-3 px-3 py-2 ">
           <Forecast forecastdata={dataa} icon={icon} />
         </div>

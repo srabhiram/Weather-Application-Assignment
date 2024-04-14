@@ -62,6 +62,7 @@ interface Sys {
 export interface weatherProps {
   data: weatherData;
   icon:(weatherID: number, sunrise: number, sunset: number) => string | undefined;
+  coord: {lat:number,lon:number}
 }
 export interface loading {
   loading: boolean;
