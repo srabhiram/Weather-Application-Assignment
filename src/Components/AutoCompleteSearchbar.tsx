@@ -3,7 +3,7 @@ import { CityData } from "../Interface/CityData";
 
 interface propsValue{
     data:CityData[];
-    handleclick: (geoname_id: string) => void; 
+    handleclick: (geoname_id: string,lat:number,lon:number) => void; 
 }
 const AutoCompleteSearchbar: React.FC<propsValue> = ({ data,handleclick }) => {
   const [query, setquery] = useState("");
@@ -34,7 +34,7 @@ const AutoCompleteSearchbar: React.FC<propsValue> = ({ data,handleclick }) => {
           <div className="bg-white w-[13rem] mt-1 cursor-default  max-h-[120px] min-h-fit  overflow-y-scroll  absolute rounded-md shadow-md ">
             {searchResults.map((city) => (
               <div key={city.geoname_id} className="hover:bg-gray-200 active:bg-blue-300 px-3  py-1" >
-                <p  onClick={()=>handleclick(city.geoname_id)}>{city.name}</p>
+                <p  onClick={()=>handleclick(city.geoname_id,city.coordinates.lat,city.coordinates.lon)}>{city.name}</p>
               </div>
             ))}
           </div>

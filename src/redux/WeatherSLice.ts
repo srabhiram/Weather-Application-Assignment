@@ -7,22 +7,19 @@ interface WeatherState {
   loading: boolean;
   error: string | null;
 }
-
-
-
 const initialState: WeatherState = {
   weatherData: null,
   loading: false,
   error: null,
 };
 
-export const fetchweatherData = createAsyncThunk<weatherData, string>(
+export const fetchweatherData = createAsyncThunk<weatherData, {lat:number,lon:number}>(
   "weatherData",
-  async (geoname_id) => {
+  async ({lat,lon}) => {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?id=${geoname_id}&appid=${
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
         import.meta.env.VITE_API_KEY
-      }&units=imperial`
+      }&units=metric`
     );
     return response.data;
   }

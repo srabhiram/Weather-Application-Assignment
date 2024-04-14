@@ -27,44 +27,36 @@ const Weatherpage = () => {
   if (loading) {
     return <Spinner loading={loading} />;
   }
-  const currentTime = new Date().getHours(); // Get current hour
-  const isDayTime = currentTime >= 6 && currentTime < 18; // Assuming day time is between 6 AM and 6 PM
+ const getWeatherIcon = (weatherID: number, sunrise: number, sunset: number): string | undefined => {
+  const currentTime = new Date().getTime() / 1000; 
+  const timeOfDay = currentTime > sunrise && currentTime < sunset ? 'd' : 'n'; 
 
-  let WeatherIcon: string | undefined;
-
-  const weatherID: number  = data ? data?.weather[0].id : 1 ;
-
-  console.log(weatherID);
-  switch (true ) {
+  switch (true) {
     case weatherID === 800:
-      WeatherIcon = isDayTime ? clear_sky_day : clear_sky_night;
-      break;
+      return timeOfDay === 'd' ? clear_sky_day : clear_sky_night;
     case weatherID === 801:
-      WeatherIcon = isDayTime ? few_clouds_day : few_clouds_night;
-      break;
+      return timeOfDay === 'd' ? few_clouds_day : few_clouds_night;
     case weatherID > 801:
-      WeatherIcon = cloudy;
-      break;
+      return cloudy;
     case weatherID > 511:
-      WeatherIcon = isDayTime ? shower_rain_day : shower_rain_night;
-      break;
+      return timeOfDay === 'd' ? shower_rain_day : shower_rain_night;
     case weatherID >= 300 && weatherID <= 321:
-      WeatherIcon = isDayTime ? shower_rain_day : shower_rain_night;
-      break;
+      return timeOfDay === 'd' ? shower_rain_day : shower_rain_night;
     case weatherID >= 500 && weatherID < 520:
-      WeatherIcon = isDayTime ? rain_day : rain_night;
-      break;
+      return timeOfDay === 'd' ? rain_day : rain_night;
     case weatherID < 233 && weatherID >= 200:
-      WeatherIcon = thunder;
-      break;
+      return thunder;
+    default:
+      return undefined;
   }
+};
   return (
     <>
       {data ? (
         <>
           <div className="h-screen flex justify-center items-center w-full">
             {" "}
-            <Weather data={data} icon={WeatherIcon} />
+            <Weather data={data} icon={getWeatherIcon} />
           </div>
         </>
       ) : (

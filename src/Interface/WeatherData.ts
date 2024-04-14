@@ -61,7 +61,7 @@ interface Sys {
 }
 export interface weatherProps {
   data: weatherData;
-  icon: string | undefined
+  icon:(weatherID: number, sunrise: number, sunset: number) => string | undefined;
 }
 export interface loading {
   loading: boolean;
