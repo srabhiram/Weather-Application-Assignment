@@ -13,7 +13,7 @@ const CityTable: React.FC<dataProps> = ({ data }) => {
 
   const [sortConfig, setSortConfig] = useState<{ key: keyof CityData | null, direction: string | null }>({ key: null, direction: null });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filters, setFilters] = useState({
+  const [filters] = useState({
     genericName: ""
   });
 
