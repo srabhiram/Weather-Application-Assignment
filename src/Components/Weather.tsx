@@ -22,9 +22,7 @@ const Weather: React.FC<weatherProps> = ({ data, icon,coord }) => {
   const dispatch = useDispatch<any>()
   useEffect(() => {
     const {lat,lon}=coord;
-   
     dispatch(fetchForecastData({lat,lon}));
-  
    
   }, [coord,dispatch])
   const fetchData = () => {
@@ -62,7 +60,6 @@ const Weather: React.FC<weatherProps> = ({ data, icon,coord }) => {
   const handleClick = (geoname_id: string, lat:number, lon:number): void => {
     dispatch(fetchweatherData({lat,lon}));
     dispatch(fetchForecastData({lat,lon}));
-
     navigate(`/weather/${geoname_id}`);
   };
 

@@ -2,8 +2,10 @@ import { forecastProps } from "../Interface/ForecastData";
 import getWeatherIcon from "./IconLogic";
 
 const getDayLabel = (date: Date): string => {
+
   const today = new Date();
   const tomorrow = new Date();
+
   tomorrow.setDate(today.getDate() + 1);
 
   if (date.toDateString() === today.toDateString()) {
@@ -28,10 +30,10 @@ const Forecast: React.FC<forecastProps> = ({ forecastdata }) => {
   // Flatten the 2D array
   const flattenedWeatherIDs = weatherIDs?.flat();
 
-  // Ensure timeOfDay is an array
+  //  timeOfDay is an array
   const timeOfDayArray = Array.isArray(timeOfDay) ? timeOfDay : [];
 
-  // Ensure weatherIcons is an array
+  //  weatherIcons is an array
   const weatherIcons =
     Array.isArray(flattenedWeatherIDs) &&
     timeOfDayArray.length === flattenedWeatherIDs.length

@@ -17,8 +17,6 @@ const CityTable: React.FC<dataProps> = ({ data }) => {
     genericName: ""
   });
 
-  
-
   const filteredData = data.filter(city => {
     return city.name.toLowerCase().includes(filters.genericName.toLowerCase());
   });
@@ -29,7 +27,6 @@ const CityTable: React.FC<dataProps> = ({ data }) => {
 
     dispatch(fetchweatherData({ lat, lon }));
     dispatch(fetchForecastData({ lat, lon }));
-
     navigate(`/weather/${geoname_id}`);
   };
 

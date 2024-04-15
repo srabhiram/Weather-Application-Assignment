@@ -9,6 +9,7 @@ function App() {
       path: "/",
       element: <Homepage />,
       errorElement: <ErrorPage />,
+     
     },
     {
       path: "/weather/:geoname_id",
